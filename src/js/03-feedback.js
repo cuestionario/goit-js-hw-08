@@ -4,9 +4,8 @@ const form = document.querySelector('.feedback-form');
 const emailInput = form.querySelector('input[name="email"]');
 const messageInput = form.querySelector('textarea[name="message"]');
 
-form.addEventListener(
-  'input',
-  throttle(() => {
+//limitar la frecuencia para ejecutar la función a 500 ms
+form.addEventListener('input',throttle(() => {
     const formData = {
       email: emailInput.value,
       message: messageInput.value,
@@ -14,7 +13,7 @@ form.addEventListener(
     localStorage.setItem('feedback-form-state', JSON.stringify(formData));
   }, 500)
 );
-
+//Verificar si el contenido se ha cargado completamente y si hay datos almacenados
 document.addEventListener('DOMContentLoaded', () => {
   const savedData = localStorage.getItem('feedback-form-state');
   if (savedData) {
@@ -34,6 +33,6 @@ form.addEventListener('submit', event => {
 
   console.log('Form data submitted:', formData);
 
-  // Borra los datos del almacenamiento local
+  // Borrar datos del almacenamiento local
   localStorage.removeItem('feedback-form-state');
 });
